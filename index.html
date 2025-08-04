@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dine with Mee</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-utensils"></i>
+                <span>Dine with Mee</span>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#meals" class="nav-link">Meals</a></li>
+
+                <li><a href="#nutrition" class="nav-link">Nutrition</a></li>
+                <li><a href="#nutrition-tracker" class="nav-link">Nutrition Tracker</a></li>
+                <li><a href="#ingredients" class="nav-link">Ingredients</a></li>
+                <li><a href="#users" class="nav-link" id="usersNavLink" style="display:none;">Users</a></li>
+                <li><a href="#cart" class="nav-link cart-link">Cart (<span id="cartCount">0</span>)</a></li>
+                <li><button class="btn btn-secondary" id="loginSignupBtn" style="margin-left:10px;">Login /
+                        Signup</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Authentic Nigerian Meals</h1>
+            <p>Bringing home-cooked Nigerian flavors to your doorstep with personalized nutrition support</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="showSection('meals')">Order Meals</button>
+                <button class="btn btn-secondary" onclick="showSection('nutrition-tracker')">Track Nutrition</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="food-card">
+                <div class="food-image">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/035/814/553/small_2x/ai-generated-african-american-black-woman-as-chef-standing-in-kitchen-with-smile-ai-photo.jpg"
+                        alt="Smiling Nigerian Female Chef in Ankara Chef Coat"
+                        style="width:100%;height:220px;object-fit:cover;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+                </div>
+                <!-- Removed food name to avoid icon/label over chef image -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Meals Section -->
+    <section id="meals" class="section">
+        <div class="container">
+            <h2>Our Authentic Nigerian Meals</h2>
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="rice">Rice Dishes</button>
+                <button class="filter-btn" data-category="soup">Soups</button>
+                <button class="filter-btn" data-category="proteins">Proteins</button>
+                <button class="filter-btn" data-category="snacks">Snacks</button>
+            </div>
+            <div class="meal-list-reference" style="margin: 30px 0;">
+                <h3 style="text-align:center;color:#2d5a27;margin-bottom:10px;">Full Nigerian Menu Reference</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:30px;justify-content:center;">
+                    <div>
+                        <strong>Main Dishes & Soups</strong>
+                        <ul style="margin:10px 0 0 18px;">
+                            <li>Jollof Rice – Tomato-based rice dish cooked with spices.</li>
+                            <li>Fried Rice – Stir-fried rice with vegetables and sometimes liver or shrimp.</li>
+                            <li>Egusi Soup – Thick soup made with melon seeds, leafy greens, and assorted meats.</li>
+                            <li>Ogbono Soup – Slimy textured soup made from wild mango seeds.</li>
+                            <li>Okra Soup (Okro) – Slimy green vegetable soup, often served with swallow.</li>
+                            <li>Afang Soup – Leafy soup made with waterleaf and afang leaves (okazi).</li>
+                            <li>Edikang Ikong – Rich vegetable soup made with pumpkin leaves and waterleaf.</li>
+                            <li>Banga Soup – Palm fruit soup, common in the Niger Delta.</li>
+                            <li>Efo Riro – Spinach and tomato stew from the Yoruba region.</li>
+                            <li>Oha Soup – Traditional Igbo soup made with oha leaves.</li>
+                            <li>Bitterleaf Soup (Ofe Onugbu) – Soup made from bitterleaf, often with thick stock.</li>
+                            <li>Nsala Soup (White Soup) – Light pepper soup made without palm oil.</li>
+                            <li>Ofada Rice and Ayamase (Designer Stew) – Indigenous rice with a spicy green pepper
+                                sauce.</li>
+                            <li>Moi Moi – Steamed bean pudding made from blended beans and peppers.</li>
+                            <li>Yam Porridge (Asaro) – Mashed yam cooked in spicy red sauce.</li>
+                            <li>Beans (Ewa Riro) – Stewed beans cooked with palm oil and pepper.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Swallows (Staple Accompaniments)</strong>
+                        <ul style="margin:10px 0 0 18px;">
+                            <li>Pounded Yam</li>
+                            <li>Eba (Garri)</li>
+                            <li>Amala</li>
+                            <li>Fufu (Cassava)</li>
+                            <li>Semovita</li>
+                            <li>Tuwo Shinkafa – Northern Nigerian rice flour swallow.</li>
+                            <li>Wheat Swallow</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Meat & Protein Dishes</strong>
+                        <ul style="margin:10px 0 0 18px;">
+                            <li>Suya – Spicy grilled meat skewers.</li>
+                            <li>Kilishi – Dried, spiced meat similar to jerky.</li>
+                            <li>Asun – Spicy grilled goat meat.</li>
+                            <li>Pepper Soup – Spicy, light soup with goat meat, catfish, or chicken.</li>
+                            <li>Nkwobi – Cow foot in spicy palm oil sauce.</li>
+                            <li>Isi Ewu – Spicy goat head delicacy.</li>
+                            <li>Gizdodo – Gizzard and plantain in a spicy sauce.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Popular Nigerian Snacks</strong>
+                        <ul style="margin:10px 0 0 18px;">
+                            <li>Puff Puff – Fried dough balls, sweet and fluffy.</li>
+                            <li>Buns – Fried dough, denser than puff puff.</li>
+                            <li>Akara – Bean cakes (deep-fried ground beans).</li>
+                            <li>Chin Chin – Crunchy fried dough bits.</li>
+                            <li>Meat Pie – Baked pastry filled with minced meat, potato, and vegetables.</li>
+                            <li>Fish Roll – Deep-fried pastry stuffed with spicy fish filling.</li>
+                            <li>Sausage Roll – Similar to meat pie but with sausage filling.</li>
+                            <li>Plantain Chips – Thinly sliced and fried ripe/unripe plantains.</li>
+                            <li>Coconut Candy – Grated coconut cooked with sugar until caramelized.</li>
+                            <li>Donkwa (Tanfiri) – Peanut and cornmeal snack.</li>
+                            <li>Kuli Kuli – Crunchy peanut snack.</li>
+                            <li>Boli – Roasted plantain, often eaten with groundnut.</li>
+                            <li>Roasted Corn and Coconut – A popular street food combo.</li>
+                            <li>Groundnut (Peanuts) – Often roasted and sold in cones.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="meals-grid" id="mealsGrid">
+                <!-- Meals will be populated by JavaScript -->
+                <!-- Meal Details Modal (moved to end of body for visibility) -->
+                <div id="mealDetailsModal" class="modal">
+                    <div class="modal-content" style="max-width:420px">
+                        <span class="close" id="closeMealDetails">&times;</span>
+                        <h3 id="mealDetailsTitle">Meal Details</h3>
+                        <div id="mealDetailsBody">
+                            <!-- Details will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Nutrition Section -->
+    <section id="nutrition" class="section">
+        <div class="container">
+            <h2>Tele-Nutrition Services</h2>
+            <div class="nutrition-intro">
+                <p>Get personalized nutrition advice from certified Nigerian dietitians who understand your cultural
+                    food preferences.</p>
+            </div>
+            <div class="nutrition-packages">
+                <div class="package-card">
+                    <h3>Basic Consultation</h3>
+                    <div class="price">15,000 RWF</div>
+                    <ul>
+                        <li>30-minute video consultation</li>
+                        <li>Basic meal plan</li>
+                        <li>Cultural food assessment</li>
+                        <li>Follow-up email support</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="bookConsultation('basic')">Book Now</button>
+                </div>
+                <div class="package-card featured">
+                    <div class="badge">Most Popular</div>
+                    <h3>Premium Package</h3>
+                    <div class="price">25,000 RWF</div>
+                    <ul>
+                        <li>60-minute comprehensive consultation</li>
+                        <li>Personalized 2-week meal plan</li>
+                        <li>Shopping list with local alternatives</li>
+                        <li>Weekly check-ins</li>
+                        <li>Recipe modifications</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="bookConsultation('premium')">Book Now</button>
+                </div>
+                <div class="package-card">
+                    <h3>Complete Care</h3>
+                    <div class="price">30,000 RWF</div>
+                    <ul>
+                        <li>90-minute initial consultation</li>
+                        <li>Monthly personalized meal plans</li>
+                        <li>Health goal tracking</li>
+                        <li>24/7 WhatsApp support</li>
+                        <li>Family meal planning</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="bookConsultation('complete')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients Section -->
+    <section id="ingredients" class="section">
+        <div class="container">
+            <h2>Nigerian Cooking Ingredients</h2>
+            <p class="section-subtitle">Premium quality ingredients sourced directly from Nigeria - 10,000 RWF/kg</p>
+            <div class="ingredients-grid" id="ingredientsGrid">
+                <!-- Ingredients will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart" class="section">
+        <div class="container">
+            <h2>Your Order</h2>
+            <div class="cart-content">
+                <div class="cart-items" id="cartItems">
+                    <p class="empty-cart">Your cart is empty. Start by adding some delicious meals!</p>
+                </div>
+                <div class="cart-summary" id="cartSummary" style="display: none;">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">0 RWF</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery:</span>
+                        <span>2,000 RWF</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">0 RWF</span>
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Users Section -->
+    <section id="users" class="section" style="display:none;">
+        <div class="container">
+            <h2>Registered Users</h2>
+            <div id="usersList">
+                <!-- Users will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Booking Consultation -->
+    <div id="consultationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Book Nutrition Consultation</h3>
+            <form id="consultationForm">
+                <div class="form-group">
+                    <label>Selected Package:</label>
+                    <input type="text" id="selectedPackage" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Full Name:</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone:</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Date:</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Time:</label>
+                    <select required>
+                        <option value="">Select time</option>
+                        <option value="9:00">9:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Health Goals/Concerns:</label>
+                    <textarea rows="3"
+                        placeholder="Tell us about your health goals or any dietary concerns..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Book Consultation</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Checkout -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Checkout</h3>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label>Delivery Address:</label>
+                    <input type="text" placeholder="Enter your full address" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number:</label>
+                    <input type="tel" placeholder="Your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label>Special Instructions:</label>
+                    <textarea rows="2" placeholder="Any special delivery instructions..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method:</label>
+                    <select required>
+                        <option value="">Select payment method</option>
+                        <option value="momo">Mobile Money</option>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="cash">Cash on Delivery</option>
+                    </select>
+                </div>
+                <div class="checkout-total">
+                    <strong>Total: <span id="checkoutTotal">0 RWF</span></strong>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i>
+        <span id="successText"></span>
+    </div>
+
+    <!-- Nutrition Tracking Section -->
+    <section id="nutrition-tracker" class="section">
+        <div class="container">
+            <h2>Nutrition Tracking</h2>
+            <p class="section-subtitle">Track your daily nutrition and health goals</p>
+
+            <!-- Nutrition Dashboard -->
+            <div class="nutrition-dashboard">
+                <div class="dashboard-card">
+                    <h3>Today's Summary</h3>
+                    <div class="nutrition-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Calories</span>
+                            <span class="stat-value" id="todayCalories">0</span>
+                            <span class="stat-target">/ 2000</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Protein</span>
+                            <span class="stat-value" id="todayProtein">0g</span>
+                            <span class="stat-target">/ 50g</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Carbs</span>
+                            <span class="stat-value" id="todayCarbs">0g</span>
+                            <span class="stat-target">/ 250g</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Fat</span>
+                            <span class="stat-value" id="todayFat">0g</span>
+                            <span class="stat-target">/ 65g</span>
+                        </div>
+                    </div>
+                    <div class="progress-bars">
+                        <div class="progress-item">
+                            <label>Calories</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="caloriesProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <label>Protein</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="proteinProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <label>Carbs</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="carbsProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <label>Fat</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="fatProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Add Food</h3>
+                    <div class="add-food-form">
+                        <div class="form-group">
+                            <label>Search Food</label>
+                            <input type="text" id="foodSearch" placeholder="Search for foods...">
+                            <div id="foodSearchResults" class="search-results"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Or Add Custom Food</label>
+                            <input type="text" id="customFoodName" placeholder="Food name">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Calories</label>
+                                <input type="number" id="customCalories" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Protein (g)</label>
+                                <input type="number" id="customProtein" min="0" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Carbs (g)</label>
+                                <input type="number" id="customCarbs" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Fat (g)</label>
+                                <input type="number" id="customFat" min="0" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Serving Size</label>
+                            <input type="text" id="servingSize" placeholder="e.g., 1 cup, 100g">
+                        </div>
+                        <button class="btn btn-primary" onclick="addCustomFood()">Add Food</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meal Log -->
+            <div class="meal-log">
+                <h3>Today's Meals</h3>
+                <div class="meal-tabs">
+                    <button class="meal-tab active" data-meal="breakfast">Breakfast</button>
+                    <button class="meal-tab" data-meal="lunch">Lunch</button>
+                    <button class="meal-tab" data-meal="dinner">Dinner</button>
+                    <button class="meal-tab" data-meal="snacks">Snacks</button>
+                </div>
+                <div class="meal-content">
+                    <div id="breakfastMeals" class="meal-list active">
+                        <!-- Breakfast foods will be added here -->
+                    </div>
+                    <div id="lunchMeals" class="meal-list">
+                        <!-- Lunch foods will be added here -->
+                    </div>
+                    <div id="dinnerMeals" class="meal-list">
+                        <!-- Dinner foods will be added here -->
+                    </div>
+                    <div id="snacksMeals" class="meal-list">
+                        <!-- Snacks will be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goals and Settings -->
+            <div class="nutrition-goals">
+                <h3>Nutrition Goals</h3>
+                <div class="goals-grid">
+                    <div class="goal-card">
+                        <h4>Daily Targets</h4>
+                        <div class="goal-inputs">
+                            <div class="form-group">
+                                <label>Calories</label>
+                                <input type="number" id="goalCalories" value="2000" min="1000" max="5000">
+                            </div>
+                            <div class="form-group">
+                                <label>Protein (g)</label>
+                                <input type="number" id="goalProtein" value="50" min="20" max="200">
+                            </div>
+                            <div class="form-group">
+                                <label>Carbs (g)</label>
+                                <input type="number" id="goalCarbs" value="250" min="50" max="500">
+                            </div>
+                            <div class="form-group">
+                                <label>Fat (g)</label>
+                                <input type="number" id="goalFat" value="65" min="20" max="150">
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="updateGoals()">Update Goals</button>
+                    </div>
+                    <div class="goal-card">
+                        <h4>Weight Tracking</h4>
+                        <div class="weight-tracker">
+                            <div class="form-group">
+                                <label>Current Weight (kg)</label>
+                                <input type="number" id="currentWeight" step="0.1" min="30" max="200">
+                            </div>
+                            <div class="form-group">
+                                <label>Target Weight (kg)</label>
+                                <input type="number" id="targetWeight" step="0.1" min="30" max="200">
+                            </div>
+                            <button class="btn btn-secondary" onclick="updateWeight()">Update Weight</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Progress -->
+            <div class="weekly-progress">
+                <h3>Weekly Progress</h3>
+                <div class="progress-chart">
+                    <div class="chart-container">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Dine with Mee</h4>
+                    <p>Authentic Nigerian meals with personalized nutrition support for the diaspora community.</p>
+                    <!-- Nigerian Meals & Dishes Reference (for devs/designers)
+                    Ogbono Soup – Slimy textured soup made from wild mango seeds.
+                    Okra Soup (Okro) – Slimy green vegetable soup, often served with swallow.
+                    Afang Soup – Leafy soup made with waterleaf and afang leaves (okazi).
+                    Edikang Ikong – Rich vegetable soup made with pumpkin leaves and waterleaf.
+                    Banga Soup – Palm fruit soup, common in the Niger Delta.
+                    Efo Riro – Spinach and tomato stew from the Yoruba region.
+                    Oha Soup – Traditional Igbo soup made with oha leaves.
+                    Nsala Soup (White Soup) – Light pepper soup made without palm oil.
+                    Ofada Rice and Ayamase (Designer Stew) – Indigenous rice with a spicy green pepper sauce.
+                    Moi Moi – Steamed bean pudding made from blended beans and peppers.
+                    Yam Porridge (Asaro) – Mashed yam cooked in spicy red sauce.
+                    Beans (Ewa Riro) – Stewed beans cooked with palm oil and pepper.
+                    Tuwo Shinkafa – Northern Nigerian rice flour swallow.
+                    Wheat Swallow
+                    Kilishi – Dried, spiced meat similar to jerky.
+                    Asun – Spicy grilled goat meat.
+                    Nkwobi – Cow foot in spicy palm oil sauce.
+                    Isi Ewu – Spicy goat head delicacy.
+                    Gizdodo – Gizzard and plantain in a spicy sauce.
+                    Buns – Fried dough, denser than puff puff.
+                    Fish Roll – Deep-fried pastry stuffed with spicy fish filling.
+                    Sausage Roll – Similar to meat pie but with sausage filling.
+                    Coconut Candy – Grated coconut cooked with sugar until caramelized.
+                    Donkwa (Tanfiri) – Peanut and cornmeal snack.
+                    Kuli Kuli – Crunchy peanut snack.
+                    Boli – Roasted plantain, often eaten with groundnut.
+                    Roasted Corn and Coconut – A popular street food combo.
+                    Groundnut (Peanuts) – Often roasted and sold in cones.
+                    -->
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone"></i> +250795193979</p>
+                    <p><i class="fas fa-envelope"></i> dynwithmee@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/d.wmee?utm_source=qr&igsh=dHlxZno2YmRsNGN0" target="_blank"
+                            rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/message/SZVAULWS37JZF1" target="_blank" rel="noopener"
+                            title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://medium.com/@dynwithmee" target="_blank" rel="noopener" title="Medium Blog"><i
+                                class="fab fa-medium"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Dine with Mee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Authentication Modal Overlay -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-container" id="authContainer">
+            <button class="auth-close" id="authCloseBtn" aria-label="Close">&times;</button>
+            <div class="auth-header">
+                <h2 id="authTitle">Login</h2>
+                <p id="authSubtitle">Welcome back! Please login to your account.</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary auth-btn btn-full">Login</button>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+                </div>
+            </form>
+            <form id="signupForm" class="auth-form" style="display:none;">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="signupAddress">Address</label>
+                    <select id="signupAddress" required>
+                        <option value="">Select your area</option>
+                        <option value="Kigali">Kigali</option>
+                        <option value="Gasabo">Gasabo</option>
+                        <option value="Kicukiro">Kicukiro</option>
+                        <option value="Nyarugenge">Nyarugenge</option>
+                        <option value="Bugesera">Bugesera</option>
+                        <option value="Musanze">Musanze</option>
+                        <option value="Rubavu">Rubavu</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="signupPhone">Phone Number</label>
+                    <input type="tel" id="signupPhone" required autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label for="signupHealthGoal">Health Goal</label>
+                    <select id="signupHealthGoal" required>
+                        <option value="">Select goal</option>
+                        <option value="lose">Lose Weight</option>
+                        <option value="gain">Gain Weight</option>
+                        <option value="maintain">Maintain Weight</option>
+                        <option value="build">Build Muscle</option>
+                    </select>
+                </div>
+                <div class="form-row form-row-2">
+                    <div class="form-group">
+                        <label for="signupCurrentWeight">Current Body Weight (kg)</label>
+                        <input type="number" id="signupCurrentWeight" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupTargetWeight">Target Body Weight (kg)</label>
+                        <input type="number" id="signupTargetWeight" min="1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signupAllergies">Allergies</label>
+                    <input type="text" id="signupAllergies" placeholder="e.g. peanuts, gluten">
+                </div>
+                <div class="form-group">
+                    <label for="signupLifestyle">Lifestyle</label>
+                    <input type="text" id="signupLifestyle" placeholder="e.g. active, sedentary, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="signupPreference">Dietary Preference</label>
+                    <input type="text" id="signupPreference" placeholder="e.g. keto, vegetarian, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="signupOther">Anything else you'd like us to know?</label>
+                    <textarea id="signupOther" rows="2" placeholder="Let us know..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn btn-primary auth-btn btn-full">Sign Up</button>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+
+</html>
