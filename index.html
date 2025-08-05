@@ -337,6 +337,16 @@
         </div>
     </div>
 
+    <!-- Simulated MoMo Payment Modal -->
+    <div id="momoModal" class="modal">
+        <div class="modal-content" style="max-width:350px;text-align:center;">
+            <span class="close" id="closeMomoModal">&times;</span>
+            <h3>Mobile Money Payment</h3>
+            <p style="margin:20px 0;">To complete your order, click the button below to simulate a MoMo payment.</p>
+            <button class="btn btn-primary btn-full" id="momoPayBtn">Pay Now</button>
+        </div>
+    </div>
+
     <!-- Success Message -->
     <div id="successMessage" class="success-message">
         <i class="fas fa-check-circle"></i>
@@ -685,6 +695,55 @@
         </div>
     </div>
     <script src="script.js" defer></script>
+    <script>
+        // --- Simulated MoMo Payment Logic ---
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkoutForm = document.getElementById('checkoutForm');
+            const paymentMethod = document.getElementById('paymentMethod');
+            const momoModal = document.getElementById('momoModal');
+            const momoPayBtn = document.getElementById('momoPayBtn');
+            const closeMomoModal = document.getElementById('closeMomoModal');
+            const checkoutModal = document.getElementById('checkoutModal');
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+
+            if (checkoutForm) {
+                checkoutForm.addEventListener('submit', function (e) {
+                    if (paymentMethod && paymentMethod.value === 'momo') {
+                        e.preventDefault();
+                        // Show MoMo modal
+                        momoModal.style.display = 'block';
+                    }
+                });
+            }
+            if (momoPayBtn) {
+                momoPayBtn.addEventListener('click', function () {
+                    momoModal.style.display = 'none';
+                    checkoutModal.style.display = 'none';
+                    // Show fake payment success
+                    if (successMessage && successText) {
+                        successText.textContent = 'MoMo payment successful! Your order has been placed.';
+                        successMessage.style.display = 'flex';
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 3500);
+                    }
+                    // Optionally, clear cart or trigger order logic here
+                });
+            }
+            if (closeMomoModal) {
+                closeMomoModal.addEventListener('click', function () {
+                    momoModal.style.display = 'none';
+                });
+            }
+            // Hide MoMo modal on outside click
+            window.addEventListener('click', function (event) {
+                if (event.target === momoModal) {
+                    momoModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
