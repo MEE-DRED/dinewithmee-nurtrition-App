@@ -729,13 +729,21 @@
                     // Get users from localStorage
                     const users = JSON.parse(localStorage.getItem('dwm-users') || '[]');
                     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+                    const password = document.getElementById('loginPassword').value;
                     const found = users.find(u => (u.email || '').toLowerCase() === email);
                     if (!found) {
                         e.preventDefault();
                         loginError.textContent = 'No account found for this email. Please sign up first.';
                         loginError.style.display = 'block';
+                    } else if (found.password !== password) {
+                        e.preventDefault();
+                        loginError.textContent = 'Incorrect password. Please try again.';
+                        loginError.style.display = 'block';
                     } else {
+                        // Successful login: set auth and close modal
+                        localStorage.setItem('dwm-auth-user', JSON.stringify(found));
                         loginError.style.display = 'none';
+                        if (authOverlay) authOverlay.style.display = 'none';
                     }
                 });
             }
@@ -766,8 +774,24 @@
             // Patch signup form to dispatch event after successful signup (if not already handled in script.js)
             const signupForm = document.getElementById('signupForm');
             if (signupForm) {
-                signupForm.addEventListener('submit', function () {
+                signupForm.addEventListener('submit', function (e) {
+                    // Get signup values
+                    const name = document.getElementById('signupName').value.trim();
+                    const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+                    const phone = document.getElementById('signupPhone').value.trim();
+                    const address = document.getElementById('signupAddress').value;
+                    const password = document.getElementById('signupPassword').value;
+                    // Save user to localStorage (let script.js handle this as normal)
                     setTimeout(function () {
+                        // Find the user just registered
+                        const users = JSON.parse(localStorage.getItem('dwm-users') || '[]');
+                        const user = users.find(u => (u.email || '').toLowerCase() === email);
+                        if (user) {
+                            // Log in the user (set auth)
+                            localStorage.setItem('dwm-auth-user', JSON.stringify(user));
+                            // Close auth modal
+                            if (authOverlay) authOverlay.style.display = 'none';
+                        }
                         window.dispatchEvent(new Event('dwm-user-registered'));
                     }, 100); // slight delay to allow localStorage update
                 });
