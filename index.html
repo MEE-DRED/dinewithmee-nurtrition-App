@@ -615,6 +615,7 @@
                     <label for="loginPassword">Password</label>
                     <input type="password" id="loginPassword" required autocomplete="current-password">
                 </div>
+                <div id="loginError" style="color:#c0392b;font-size:0.98em;margin-bottom:10px;display:none;"></div>
                 <button type="submit" class="btn btn-primary auth-btn btn-full">Login</button>
                 <div class="auth-footer">
                     <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
@@ -706,7 +707,73 @@
             const checkoutModal = document.getElementById('checkoutModal');
             const successMessage = document.getElementById('successMessage');
             const successText = document.getElementById('successText');
+            const authOverlay = document.getElementById('authOverlay');
+            const authContainer = document.getElementById('authContainer');
 
+            // Show login/signup modal on any app click if not authenticated
+            document.body.addEventListener('click', function (e) {
+                if (authOverlay && authOverlay.style.display === 'flex') return;
+                if (authContainer && authContainer.contains(e.target)) return;
+                const user = localStorage.getItem('dwm-auth-user');
+                if (!user) {
+                    authOverlay.style.display = 'flex';
+                }
+            }, true);
+
+            // Show error if login attempted with unregistered email
+            const loginForm = document.getElementById('loginForm');
+            const loginError = document.getElementById('loginError');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function (e) {
+                    if (!loginError) return;
+                    // Get users from localStorage
+                    const users = JSON.parse(localStorage.getItem('dwm-users') || '[]');
+                    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+                    const found = users.find(u => (u.email || '').toLowerCase() === email);
+                    if (!found) {
+                        e.preventDefault();
+                        loginError.textContent = 'No account found for this email. Please sign up first.';
+                        loginError.style.display = 'block';
+                    } else {
+                        loginError.style.display = 'none';
+                    }
+                });
+            }
+
+            // Display registered users in the Users section
+            function renderUsersList() {
+                const usersList = document.getElementById('usersList');
+                if (!usersList) return;
+                const users = JSON.parse(localStorage.getItem('dwm-users') || '[]');
+                if (users.length === 0) {
+                    usersList.innerHTML = '<p style="color:#888;text-align:center;">No users have registered yet.</p>';
+                    return;
+                }
+                let html = '<table style="width:100%;border-collapse:collapse;font-size:1em;">';
+                html += '<tr style="background:#f7f7f7;"><th style="padding:8px 4px;text-align:left;">Name</th><th style="padding:8px 4px;text-align:left;">Email</th><th style="padding:8px 4px;text-align:left;">Phone</th><th style="padding:8px 4px;text-align:left;">Address</th></tr>';
+                users.forEach(u => {
+                    html += `<tr><td style="padding:6px 4px;border-bottom:1px solid #eee;">${u.name || ''}</td><td style="padding:6px 4px;border-bottom:1px solid #eee;">${u.email || ''}</td><td style="padding:6px 4px;border-bottom:1px solid #eee;">${u.phone || ''}</td><td style="padding:6px 4px;border-bottom:1px solid #eee;">${u.address || ''}</td></tr>`;
+                });
+                html += '</table>';
+                usersList.innerHTML = html;
+            }
+            // Initial render
+            renderUsersList();
+
+            // Re-render users list after signup (listen for custom event or patch signup logic if needed)
+            window.addEventListener('dwm-user-registered', renderUsersList);
+
+            // Patch signup form to dispatch event after successful signup (if not already handled in script.js)
+            const signupForm = document.getElementById('signupForm');
+            if (signupForm) {
+                signupForm.addEventListener('submit', function () {
+                    setTimeout(function () {
+                        window.dispatchEvent(new Event('dwm-user-registered'));
+                    }, 100); // slight delay to allow localStorage update
+                });
+            }
+
+            // --- MoMo Payment Logic ---
             if (checkoutForm) {
                 checkoutForm.addEventListener('submit', function (e) {
                     if (paymentMethod && paymentMethod.value === 'momo') {
